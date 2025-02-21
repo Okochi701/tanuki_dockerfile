@@ -6,25 +6,17 @@ ENV DEBIAN_FRONTEND=noninteractive
 # XDG_RUNTIME_DIR を設定
 ENV XDG_RUNTIME_DIR=/run/user/1000
 #Linuxでscreenを使用する
-#https://qiita.com/ckron/items/2110d32d036c890d48b9
 ENV SHELL /bin/bash 
 
 
 
 # 必要なパッケージのインストール
 RUN apt-get update && apt-get install -y \
-    xvfb \
-    x11-apps \
-    dbus-x11 \
-    x11-xserver-utils \
+    ffmpeg \
     net-tools \
     sudo \
-    ffmpeg \
-    libgl1-mesa-glx \
-    mesa-utils \
-    libasound2 \
-    libasound2-plugins \
-    libglu1-mesa \
+    xvfb \
+    x11-apps \
     && apt-get clean \
     && rm --recursive --force /var/lib/apt/lists/*
 
@@ -44,7 +36,6 @@ COPY Tanuki_move9.x86_64 ./Tanuki_move9.x86_64
 COPY Project_tanuki_llm ./Project_tanuki_llm
 COPY Tanuki_move9_Data ./Tanuki_move9_Data
 COPY UnityPlayer.so ./UnityPlayer.so
-COPY Assets ./Assets
 
 # ファイルとフォルダの所有者を myuser に変更
 RUN chown -R myuser:myuser /home/myuser/
